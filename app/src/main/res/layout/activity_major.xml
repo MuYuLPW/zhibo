@@ -8,28 +8,12 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start"
     tools:context=".ligui.MajorActivity">
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:id="@+id/mainView"
-        android:orientation="vertical"
-        android:layout_height="match_parent">
-        <android.support.v4.view.ViewPager
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:id="@+id/homeViewPager">
-        </android.support.v4.view.ViewPager>
-        <android.support.design.widget.BottomNavigationView
-            android:id="@+id/bottom_navigate"
-            android:layout_width="match_parent"
-            app:itemIconTint="@drawable/selector_tab_color"
-            app:itemTextColor="@drawable/selector_tab_color"
-            app:menu="@menu/menu_bootom_navigation"
-            android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:id="@+id/fragment">
 
-        </android.support.design.widget.BottomNavigationView>
-
-    </LinearLayout>
+    </FrameLayout>
     <android.support.design.widget.NavigationView
         android:layout_gravity="start"
         android:id="@+id/menuView"

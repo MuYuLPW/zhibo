@@ -29,7 +29,7 @@ public class PlayActivity extends AppCompatActivity {
         Glide.with(this).load(imgUrl).into(jzvdStd.thumbImageView);
         jzvdStd.fullscreenButton.setVisibility(View.GONE);
         jzvdStd.startVideo();
-
+//        jzvdStd.setScreenFullscreen();
     }
 
     @Override

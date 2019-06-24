@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,7 @@ import com.muyu.zhibo.R;
 import com.muyu.zhibo.adapter.ViewPagerAdapter;
 import com.muyu.zhibo.fragment.BaseFragment;
 import com.muyu.zhibo.fragment.FasterFargment;
+import com.muyu.zhibo.fragment.HomeFragment;
 import com.muyu.zhibo.fragment.JinPingFragment;
 import com.muyu.zhibo.fragment.ShiPinFragment;
 import com.muyu.zhibo.fragment.TuPianFragment;
@@ -29,15 +31,13 @@ import com.muyu.zhibo.utils.JSUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MajorActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, ViewPager.OnPageChangeListener {
+public class MajorActivity extends AppCompatActivity{
 
-    private android.widget.LinearLayout mainView;
     private android.support.design.widget.NavigationView menuView;
     private android.support.v4.widget.DrawerLayout drawerLayout;
     private MyDrawerListener drawerListener;
-    private ViewPager homeViewPager;
-    private List<BaseFragment> list=new ArrayList<>();
-    private BottomNavigationView bottom_navigate;
+    private HomeFragment homeFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,78 +55,27 @@ public class MajorActivity extends AppCompatActivity implements BottomNavigation
     private void initListener() {
         drawerListener = new MyDrawerListener();
         drawerLayout.addDrawerListener(drawerListener);
-        bottom_navigate.setOnNavigationItemSelectedListener(this);
-        homeViewPager.addOnPageChangeListener(this);
+
     }
 
     private void initView() {
         this.drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         this.menuView = (NavigationView) findViewById(R.id.menuView);
-        this.mainView = (LinearLayout) findViewById(R.id.mainView);
-        bottom_navigate = findViewById(R.id.bottom_navigate);
-        homeViewPager = findViewById(R.id.homeViewPager);
-        list.add(new TuiJianFragment());
-        list.add(new TuPianFragment());
-        list.add(new ShiPinFragment());
-        list.add(new JinPingFragment());
-        ViewPagerAdapter adapter=new ViewPagerAdapter(getSupportFragmentManager(),list);
-        homeViewPager.setAdapter(adapter);
+        if (homeFragment==null){
+            homeFragment=new HomeFragment();
+        }
+        addFragment(homeFragment,"home");
+    }
+
+    private void addFragment(BaseFragment fragment,String name){
+        FragmentManager manager = getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.fragment,fragment,name).commit();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         drawerLayout.removeDrawerListener(drawerListener);
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        switch (menuItem.getItemId()){
-            case R.id.tab_home:
-                homeViewPager.setCurrentItem(0,false);
-                return true;
-            case R.id.tab_pic:
-                homeViewPager.setCurrentItem(1,false);
-                return true;
-            case R.id.tab_hdv:
-                homeViewPager.setCurrentItem(2,false);
-                return true;
-            case R.id.tab_star:
-                homeViewPager.setCurrentItem(3,false);
-                return true;
-        }
-        return false;
-    }
-
-    @Override
-    public void onPageScrolled(int i, float v, int i1) {
-
-    }
-
-    @Override
-    public void onPageSelected(int i) {
-        Log.e("tag",i+"-----------------------------------");
-        int id=0;
-        switch (i){
-            case 0:
-                id=R.id.tab_home;
-                break;
-            case 1:
-                id=R.id.tab_pic;
-                break;
-            case 2:
-                id=R.id.tab_hdv;
-                break;
-            case 3:
-                id=R.id.tab_star;
-                break;
-        }
-        bottom_navigate.setSelectedItemId(id);
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int i) {
-
     }
 
     class MyDrawerListener implements DrawerLayout.DrawerListener{

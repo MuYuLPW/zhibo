@@ -1,5 +1,7 @@
 package com.muyu.zhibo.fragment;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,8 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lxj.xpopup.impl.LoadingPopupView;
 import com.muyu.zhibo.MyApp;
+import com.muyu.zhibo.PlayActivity;
 import com.muyu.zhibo.R;
 import com.muyu.zhibo.adapter.PicAndHdvAdapter;
 import com.muyu.zhibo.adapter.Tab_Adapter;
@@ -65,6 +69,25 @@ public abstract class FasterFargment extends BaseFragment {
             tab_recycler.setVisibility(View.VISIBLE);
         }
         getList();
+    }
+
+    @Override
+    public void initListener() {
+        picAndHdvAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                DataBean dataBean = picAndHdvList.get(position);
+                if (dataBean.getType()==1){
+//                    Intent intent=new Intent(getContext(), PlayActivity.class);
+//                    intent.putExtra("url",dataBean.getUrl()+MyApp.myApp.fileId);
+//                    intent.putExtra("img",dataBean.getCover()+MyApp.myApp.fileId);
+//                    startActivity(intent);
+                    Uri uri=Uri.parse(dataBean.getUrl()+MyApp.myApp.fileId);
+                    Intent intent=new Intent(Intent.ACTION_VIEW, uri);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     @Override
