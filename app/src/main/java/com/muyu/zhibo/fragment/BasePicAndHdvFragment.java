@@ -36,6 +36,7 @@ public abstract class BasePicAndHdvFragment extends FasterFargment {
             @Override
             public void onResponse(Call<ListBean2> call, Response<ListBean2> response) {
                 swip.setRefreshing(false);
+                swip.setEnabled(true);
                 if (response.code()!=200){
                     onFailure(call,new Throwable("网络请求出错"));
                 }
@@ -44,7 +45,14 @@ public abstract class BasePicAndHdvFragment extends FasterFargment {
                     List<DataBean> data = body.getData();
                     Collections.sort(data,Collections.reverseOrder());
                     picAndHdvList.addAll(data);
-                    picAndHdvAdapter.notifyDataSetChanged();
+                    if (body.isHasnext()) {
+                        picAndHdvAdapter.loadMoreComplete();
+                        cursor = body.getNextCursor();
+                    } else {
+                        picAndHdvAdapter.loadMoreEnd();
+//                        picAndHdvAdapter.notifyDataSetChanged();
+                    }
+
                 }catch (Exception e){
                     onFailure(call,new Throwable("抛异常了"));
                 }
@@ -54,6 +62,7 @@ public abstract class BasePicAndHdvFragment extends FasterFargment {
             @Override
             public void onFailure(Call<ListBean2> call, Throwable t) {
                 swip.setRefreshing(false);
+                swip.setEnabled(true);
                 Log.e("tag",t.getMessage());
                 Toast.makeText(getContext(),t.getMessage(),Toast.LENGTH_LONG).show();
             }

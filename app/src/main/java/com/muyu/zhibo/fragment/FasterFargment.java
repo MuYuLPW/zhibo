@@ -33,7 +33,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public abstract class FasterFargment extends BaseFragment {
+public abstract class FasterFargment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener {
 
     private RecyclerView recycler;
     private RecyclerView tab_recycler;
@@ -98,6 +98,25 @@ public abstract class FasterFargment extends BaseFragment {
                 }
             }
         });
+        swip.setOnRefreshListener(this);
+        picAndHdvAdapter.setOnLoadMoreListener(this,recycler);
+        tab_adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                for (int i = 0; i < tabList.size(); i++) {
+                    tabList.get(i).setChecked(false);
+                }
+                TabBean.DataBean dataBean = tabList.get(position);
+                dataBean.setChecked(true);
+                lid=dataBean.getId();
+                cursor="0";
+                recycler.scrollToPosition(0);
+                picAndHdvList.clear();
+                swip.setRefreshing(true);
+                tab_adapter.notifyDataSetChanged();
+                getList();
+            }
+        });
     }
 
     @Override
@@ -126,4 +145,18 @@ public abstract class FasterFargment extends BaseFragment {
         });
     }
     public abstract void getList();
+
+    @Override
+    public void onRefresh() {
+        cursor="0";
+        swip.setRefreshing(true);
+        picAndHdvList.clear();
+        getList();
+    }
+
+    @Override
+    public void onLoadMoreRequested() {
+        swip.setEnabled(false);
+        getList();
+    }
 }
