@@ -31,6 +31,8 @@ import com.muyu.zhibo.utils.JSUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.jzvd.Jzvd;
+
 public class MajorActivity extends AppCompatActivity{
 
     private android.support.design.widget.NavigationView menuView;
@@ -122,4 +124,5 @@ public class MajorActivity extends AppCompatActivity{
 
         }
     }
+
 }

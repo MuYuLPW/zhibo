@@ -24,6 +24,7 @@ public class JZMediaIjk extends JZMediaInterface implements IMediaPlayer.OnPrepa
 
     public JZMediaIjk(Jzvd jzvd) {
         super(jzvd);
+//        ijkMediaPlayer.setOption( IjkMediaPlayer.OPT_CATEGORY_FORMAT, "dns_cache_clear", 1);
     }
 
     @Override

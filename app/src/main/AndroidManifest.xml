@@ -28,9 +28,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".ligui.LoginActivity" />
-        <activity android:name=".ligui.MajorActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:launchMode="singleInstance"></activity>
+        <activity
+            android:name=".ligui.MajorActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity
+            android:name=".ligui.LiGuiPlayActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".ligui.ImageActivity"></activity>
     </application>
 
 </manifest>

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lxj.xpopup.impl.LoadingPopupView;
@@ -21,6 +22,8 @@ import com.muyu.zhibo.adapter.Tab_Adapter;
 import com.muyu.zhibo.bean.liguiBean.DataBean;
 import com.muyu.zhibo.bean.liguiBean.ListBean;
 import com.muyu.zhibo.bean.liguiBean.TabBean;
+import com.muyu.zhibo.ligui.ImageActivity;
+import com.muyu.zhibo.ligui.LiGuiPlayActivity;
 import com.muyu.zhibo.utils.HttpServices;
 import com.muyu.zhibo.utils.MyCall;
 
@@ -78,12 +81,19 @@ public abstract class FasterFargment extends BaseFragment {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 DataBean dataBean = picAndHdvList.get(position);
                 if (dataBean.getType()==1){
-//                    Intent intent=new Intent(getContext(), PlayActivity.class);
-//                    intent.putExtra("url",dataBean.getUrl()+MyApp.myApp.fileId);
-//                    intent.putExtra("img",dataBean.getCover()+MyApp.myApp.fileId);
+                    Intent intent=new Intent(getContext(), LiGuiPlayActivity.class);
+                    intent.putExtra("title",dataBean.getName());
+                    intent.putExtra("url",dataBean.getUrl()+MyApp.myApp.fileId);
+                    intent.putExtra("img",dataBean.getCover()+MyApp.myApp.fileId);
+                    startActivity(intent);
+                    //todo 华为问题
+//                    Uri uri=Uri.parse(dataBean.getUrl()+MyApp.myApp.fileId);
+//                    Intent intent=new Intent(Intent.ACTION_VIEW, uri);
 //                    startActivity(intent);
-                    Uri uri=Uri.parse(dataBean.getUrl()+MyApp.myApp.fileId);
-                    Intent intent=new Intent(Intent.ACTION_VIEW, uri);
+                }else {
+                    Intent intent=new Intent(getContext(), ImageActivity.class);
+                    intent.putExtra("title",dataBean.getName());
+                    intent.putExtra("url",dataBean.getUrl());
                     startActivity(intent);
                 }
             }
