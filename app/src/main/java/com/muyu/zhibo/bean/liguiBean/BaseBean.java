@@ -7,7 +7,7 @@ public class BaseBean{
      * code : 400
      */
 
-    protected boolean success;
+    protected boolean success=true;
     protected String msg;
     protected int code;
 

@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.lxj.xpopup.impl.LoadingPopupView;
 import com.muyu.zhibo.MyApp;
 import com.muyu.zhibo.PlayActivity;
 import com.muyu.zhibo.R;

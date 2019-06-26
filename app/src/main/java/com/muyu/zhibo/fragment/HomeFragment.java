@@ -69,7 +69,6 @@ public class HomeFragment extends BaseFragment  implements BottomNavigationView.
 
     @Override
     public void onPageSelected(int i) {
-        Log.e("tag",i+"-----------------------------------");
         int id=0;
         switch (i){
             case 0:

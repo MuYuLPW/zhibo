@@ -11,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,8 @@ import com.muyu.zhibo.fragment.BaseFragment;
 import com.muyu.zhibo.fragment.FasterFargment;
 import com.muyu.zhibo.fragment.HomeFragment;
 import com.muyu.zhibo.fragment.JinPingFragment;
+import com.muyu.zhibo.fragment.ModelFragment;
+import com.muyu.zhibo.fragment.SearchFragment;
 import com.muyu.zhibo.fragment.ShiPinFragment;
 import com.muyu.zhibo.fragment.TuPianFragment;
 import com.muyu.zhibo.fragment.TuiJianFragment;
@@ -39,6 +42,8 @@ public class MajorActivity extends AppCompatActivity{
     private android.support.v4.widget.DrawerLayout drawerLayout;
     private MyDrawerListener drawerListener;
     private HomeFragment homeFragment;
+    private SearchFragment searchFragment;
+    private ModelFragment modelFragment;
 
 
     @Override
@@ -57,12 +62,42 @@ public class MajorActivity extends AppCompatActivity{
     private void initListener() {
         drawerListener = new MyDrawerListener();
         drawerLayout.addDrawerListener(drawerListener);
+        menuView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                menuItem.setCheckable(true);//设置选项可选
+                menuItem.setChecked(true);//设置选型被选中
+                switch (menuItem.getItemId()){
+                    case R.id.left_home:
+                        if (homeFragment==null){
+                            homeFragment=new HomeFragment();
+                        }
+                        addFragment(homeFragment,"home");
+                        break;
+                    case R.id.left_search:
+                        if (searchFragment==null){
+                            searchFragment=new SearchFragment();
+                        }
+                        addFragment(searchFragment,"search");
+                        break;
+                    case R.id.left_model:
+                        if (modelFragment==null){
+                            modelFragment=new ModelFragment();
+                        }
+                        addFragment(modelFragment,"search");
+                        break;
+                }
+                drawerLayout.closeDrawer(Gravity.LEFT);
+                return true;
+            }
+        });
 
     }
 
     private void initView() {
         this.drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         this.menuView = (NavigationView) findViewById(R.id.menuView);
+        menuView.setCheckedItem(R.id.left_home);
         if (homeFragment==null){
             homeFragment=new HomeFragment();
         }
