@@ -5,6 +5,7 @@ import com.muyu.zhibo.bean.liguiBean.ListBean;
 import com.muyu.zhibo.bean.liguiBean.ListBean2;
 import com.muyu.zhibo.bean.liguiBean.LoginBean;
 import com.muyu.zhibo.bean.liguiBean.ModelBean;
+import com.muyu.zhibo.bean.liguiBean.ModelListBean;
 import com.muyu.zhibo.bean.liguiBean.TabBean;
 import com.muyu.zhibo.bean.listBean;
 
@@ -59,4 +60,8 @@ public interface HttpServices  {
     @FormUrlEncoded
     @POST("model/getModelsPager")
     Call<ModelBean> getModelList(@FieldMap Map<String,String> map);
+
+    @FormUrlEncoded
+    @POST("model/getModelDetailsInfo")
+    Call<ModelListBean> getModelDetailsInfo(@FieldMap Map<String,String> map);
 }
