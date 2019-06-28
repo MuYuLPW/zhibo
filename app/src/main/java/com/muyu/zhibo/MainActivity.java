@@ -7,6 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -15,6 +18,7 @@ import com.muyu.zhibo.adapter.PingTaiAdapter;
 import com.muyu.zhibo.bean.listBean;
 import com.muyu.zhibo.utils.HttpServices;
 import com.muyu.zhibo.utils.MyUtils;
+import com.muyu.zhibo.utils.SharedPreferencesHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +48,26 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         initListener();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_pingtai,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId()==R.id.change){
+            boolean aBoolean = !SharedPreferencesHelper.getInstance(this).getBoolean(MyUtils.ISBEIYONG, false);
+            String baseUrl = MyUtils.getBaseUrl(aBoolean);
+            SharedPreferencesHelper.getInstance(this).putBoolean(MyUtils.ISBEIYONG, aBoolean);
+            MyApp.myApp.baseUrl=baseUrl;
+            Toast.makeText(this,baseUrl,Toast.LENGTH_LONG).show();
+            onRefresh();
+        }
+        return true;
+    }
+
     private void initListener() {
         swit.setOnRefreshListener(this);
         adapter.setOnItemClickListener(this);
@@ -55,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     private void getList() {
         HttpServices httpServices = MyApp.myApp.retrofit.create(HttpServices.class);
-        Call<listBean> call = httpServices.getPingTaiList(MyUtils.PINGTAI_LIST_URL);
+        Call<listBean> call = httpServices.getPingTaiList(MyUtils.getPingTaiUrl(MyApp.myApp.baseUrl));
         call.enqueue(new Callback<listBean>() {
             @Override
             public void onResponse(Call<listBean> call, Response<listBean> response) {

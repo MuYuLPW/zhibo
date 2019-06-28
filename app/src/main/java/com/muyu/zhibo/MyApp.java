@@ -18,11 +18,14 @@ public class MyApp extends Application {
     public Retrofit retrofit;
     public String tokenId;
     public String fileId;
+    public String baseUrl;
     @Override
     public void onCreate() {
         super.onCreate();
         myApp=this;
         tokenId= SharedPreferencesHelper.getInstance(this).getString(MyUtils.TOKENID);
+        boolean b = SharedPreferencesHelper.getInstance(this).getBoolean(MyUtils.ISBEIYONG, false);
+        baseUrl=MyUtils.getBaseUrl(b);
         Log.e("tag",tokenId);
         fileId=MyUtils.getFileId(this);
         OkHttpClient client=new OkHttpClient.Builder()

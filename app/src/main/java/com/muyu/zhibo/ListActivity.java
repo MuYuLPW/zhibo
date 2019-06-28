@@ -62,7 +62,7 @@ public class ListActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     private void getList() {
         HttpServices httpServices = MyApp.myApp.retrofit.create(HttpServices.class);
-        Call<ZhuBoBean> call = httpServices.getZhubolist(MyUtils.BASE_URL + address);
+        Call<ZhuBoBean> call = httpServices.getZhubolist(MyApp.myApp.baseUrl + address);
         call.enqueue(new Callback<ZhuBoBean>() {
             @Override
             public void onResponse(Call<ZhuBoBean> call, Response<ZhuBoBean> response) {
