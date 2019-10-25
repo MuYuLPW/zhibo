@@ -42,7 +42,7 @@ public abstract class FasterFargment extends BaseFragment implements SwipeRefres
     protected SwipeRefreshLayout swip;
     protected boolean hasTab=true;
     protected String type="1";
-    protected String size="20";//每页请求的数据
+    protected String size="8";//每页请求的数据
     protected String cursor="0";//请求的游标
     protected String lid="";//请求的label
     protected PicAndHdvAdapter picAndHdvAdapter;
@@ -67,8 +67,8 @@ public abstract class FasterFargment extends BaseFragment implements SwipeRefres
 
     private void initData() {
         if (hasTab){
-            getTabList();
-            tab_recycler.setVisibility(View.VISIBLE);
+//            getTabList();
+//            tab_recycler.setVisibility(View.VISIBLE);
         }
         getList();
     }

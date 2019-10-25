@@ -31,12 +31,14 @@ public abstract class MyCall<T extends BaseBean> implements Callback<T>{
             onFailure(call,new Throwable("返回结果不是200"));
         }else {
             T body = response.body();
+            Log.e("tag",body.getMsg()+"-----------------"+body.isSuccess());
             if (body.isSuccess()){
                 getResult(call,response);
             }
             else {
                 Toast.makeText(MyApp.myApp,body.getMsg(),Toast.LENGTH_LONG).show();
                 Intent intent=new Intent(MyApp.myApp, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 MyApp.myApp.startActivity(intent);
             }
         }

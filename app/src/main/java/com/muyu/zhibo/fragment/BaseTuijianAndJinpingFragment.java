@@ -25,7 +25,7 @@ public abstract class BaseTuijianAndJinpingFragment extends FasterFargment {
         Map<String, String> map = new HashMap<>();
         map.put("cursor", cursor);
         map.put("size", size);
-        map.put("type", type);
+        map.put("_version", "1.0.0");
         map.put("token", MyApp.myApp.tokenId);
         Call<ListBean> call = httpServices.getIndexCommendOrGoodPager(map);
         call.enqueue(new Callback<ListBean>() {
@@ -61,6 +61,7 @@ public abstract class BaseTuijianAndJinpingFragment extends FasterFargment {
                 swip.setRefreshing(false);
                 swip.setEnabled(true);
                 picAndHdvAdapter.loadMoreFail();
+                Log.e("tag",t.getMessage());
                 Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });

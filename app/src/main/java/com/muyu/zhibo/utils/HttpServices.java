@@ -27,7 +27,7 @@ public interface HttpServices  {
     Call<ZhuBoBean> getZhubolist(@Url String url);
 
     @FormUrlEncoded
-    @POST("user/login")
+    @POST("web/user/login")
     Call<LoginBean> login(@FieldMap Map<String,String> map);
 
     /**
@@ -36,7 +36,7 @@ public interface HttpServices  {
      * @return
      */
     @FormUrlEncoded
-    @POST("label/getAllLabelList ")
+    @POST("label/getAllLabelList")
     Call<TabBean> getLabelList(@Field("token") String token);
 
     /**
@@ -45,7 +45,7 @@ public interface HttpServices  {
      * @return
      */
     @FormUrlEncoded
-    @POST("content/getIndexCommendOrGoodPager")
+    @POST("content/getMostPopularPager")
     Call<ListBean> getIndexCommendOrGoodPager(@FieldMap Map<String,String> map);
 
     /**

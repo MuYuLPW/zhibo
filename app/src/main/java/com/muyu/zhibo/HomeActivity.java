@@ -47,6 +47,11 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
     private void checkPic() {
         Intent intent=new Intent(this, MajorActivity.class);
         startActivity(intent);

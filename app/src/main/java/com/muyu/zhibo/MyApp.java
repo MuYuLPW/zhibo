@@ -34,7 +34,7 @@ public class MyApp extends Application {
                 .writeTimeout(30, TimeUnit.SECONDS)
                 .build();
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://web.ligui.com/web/")
+                .baseUrl("http://xinweb.liguiclub.com/")
                 .client(client)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())

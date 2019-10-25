@@ -3,6 +3,7 @@ package com.muyu.zhibo.ligui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -72,7 +73,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Map<String,String> map=new HashMap<>();
         map.put("phone",phongNum);
         map.put("password",md5Pass);
-        map.put("userType","0");
+        map.put("areaAccount","86");
+        map.put("_version","1.0.0");
         Call<LoginBean> call = httpServices.login(map);
         call.enqueue(new MyCall<LoginBean>(loading) {
             @Override
